@@ -87,3 +87,78 @@ All witness statements are merged into a **single unified report** — downloada
 
 ---
 ## 📂 Project Structure
+
+---
+
+## 🚀 Deployment
+
+### Deploy to Netlify (Recommended)
+1. Go to [Netlify Drop](https://app.netlify.com/drop)
+2. Drag and drop `index.html`
+3. Done! Your app is live in seconds.
+
+### Deploy to GitHub Pages
+1. Create a GitHub repository
+2. Upload `index.html`
+3. Enable Pages in repository settings
+4. Your app is live at `username.github.io/repo-name`
+
+---
+
+## 🧪 How to Test
+
+1. Open the app in your browser
+2. Click **"Start Now"**
+3. Click **"No, but something's wrong"**
+4. Select a scenario (e.g., "Metro / Train")
+5. Type a report and click **"Submit Report"**
+6. Click **"Start Beacon"** to generate a code
+7. Open the app on another device/tab, enter the code
+8. See reports sync across devices! (via localStorage)
+
+---
+
+## 🔒 Privacy & Security
+
+| Aspect | Detail |
+|--------|--------|
+| **User Data** | No names, emails, or accounts collected |
+| **Location** | Only shared if YOU click "Share Location" |
+| **Storage** | Browser localStorage (no cloud) |
+| **Data Control** | Clear all reports anytime |
+| **Anonymity** | Witness IDs are randomly generated |
+| **No Backend** | Zero data leaves your device |
+
+**Your data stays on YOUR device. No cloud. No servers. No tracking.**
+
+---
+
+## 👥 Team
+
+| Name | Role |
+|------|------|
+| **SAMEEKSHA K** | Full Stack Developer |
+
+---
+
+## 🙏 Acknowledgments
+
+- **Hack Devengers 1.0** — Platform for this project
+- **5 Ds Framework** — Bystander intervention methodology
+- **Font Awesome** — Icons
+- **Google Fonts** — Typography
+
+---
+
+
+## 🏆 Hack Devengers 1.0
+
+This project was built for [Hack Devengers 1.0](https://hackdevengers.com) — a hackathon focused on building solutions for social good.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for Hack Devengers 1.0</sub>
+  <br>
+  <sub><strong>"Don't freeze. Act."</strong></sub>
+</div>
