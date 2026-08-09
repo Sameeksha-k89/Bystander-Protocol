@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+    <title>The Bystander Protocol — Quick. Safe. Anonymous.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F0F3F8;
+            color: #1B263B;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrap {
+            max-width: 960px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            background: rgba(240, 243, 248, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(13, 27, 42, 0.1);
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            display: flex;
+            justify-content: center;
+        }
+        header .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0D1B2A;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .brand i {
+            color: #F9C74F;
+        }
+        .brand .lamp {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #F9C74F;
+            animation: pulse 2.8s ease-out infinite;
+            display: inline-block;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(249, 199, 79, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(249, 199, 79, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(249, 199, 79, 0);
+            }
+        }
+        .reset-link {
+            font-size: 0.75rem;
+            color: #5A6B7C;
+            border-bottom: 1px dotted #5A6B7C;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 2px 0;
+        }
+        .reset-link:hover {
+            color: #0D1B2A;
+            border-color: #F9C74F;
+        }
+
+        /* Hero */
+        .hero {
+            background: #0D1B2A;
+            color: white;
+            padding: 60px 0 72px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero .wrap {
+            align-items: flex-start;
+        }
+        .hero .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.65rem;
+            color: #F9C74F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero .eyebrow span {
+            display: inline-block;
+            width: 24px;
+            height: 2px;
+            background: #F9C74F;
+            opacity: 0.4;
+        }
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+            line-height: 1.08;
+            max-width: 14ch;
+            margin-bottom: 14px;
+            color: white;
+        }
+        .hero h1 i {
+            color: #F9C74F;
+            margin-right: 6px;
+        }
+        .hero p.lede {
+            color: #C8D6E8;
+            max-width: 50ch;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, #F9C74F, #E8A83D);
+            color: #0D1B2A;
+            border-color: #F9C74F;
+        }
+        .btn-primary:hover {
+            background: #FCD36A;
+        }
+        .btn-ghost {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(247, 244, 238, 0.25);
+        }
+        .btn-ghost:hover {
+            border-color: rgba(247, 244, 238, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .btn-danger {
+            background: #D65A6A;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #E26E7E;
+        }
+        .btn-sage {
+            background: #4C9F70;
+            color: #fff;
+        }
+        .btn-sage:hover {
+            background: #5CB082;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #0D1B2A;
+            border: 1.5px solid rgba(13, 27, 42, 0.1);
+        }
+        .btn-outline:hover {
+            border-color: #F9C74F;
+            background: rgba(249, 199, 79, 0.06);
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        .hero-note {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(247, 244, 238, 0.08);
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 0.75rem;
+            color: #A8B8D0;
+        }
+        .hero-note i {
+            color: #F9C74F;
+            margin-right: 4px;
+            width: 16px;
+        }
+
+        /* Main */
+        main {
+            padding: 32px 0 64px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        main .wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .view {
+            display: none;
+            width: 100%;
+        }
+        .view.active {
+            display: block;
+            animation: fadein 0.25s ease;
+        }
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Stepper */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex: 1;
+        }
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #fff;
+            border: 2px solid rgba(13, 27, 42, 0.1);
+            color: #5A6B7C;
+            transition: 0.2s;
+        }
+        .step-item.done .step-dot {
+            background: #4C9F70;
+            border-color: #4C9F70;
+            color: #fff;
+        }
+        .step-item.current .step-dot {
+            background: #F9C74F;
+            border-color: #F9C74F;
+            color: #0D1B2A;
+            box-shadow: 0 0 0 5px rgba(249, 199, 79, 0.2);
+        }
+        .step-track {
+            flex: 1;
+            height: 2px;
+            background: rgba(13, 27, 42, 0.1);
+            margin: 0 4px;
+            border-radius: 4px;
+        }
+        .step-item.done .step-track {
+            background: #4C9F70;
+        }
+        .step-label {
+            font-size: 0.65rem;
+            color: #5A6B7C;
+            margin-left: 6px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .step-item.current .step-label {
+            color: #0D1B2A;
+            font-weight: 700;
+        }
+        @media (max-width: 480px) {
+            .step-label {
+                display: none;
+            }
+        }
+
+        /* Gate */
+        .gate-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 560px;
+            width: 100%;
+        }
+        @media (max-width: 480px) {
+            .gate-options {
+                grid-template-columns: 1fr;
+            }
+        }
+        .gate-card {
+            text-align: center;
+            background: #fff;
+            border: 2px solid rgba(13, 27, 42, 0.1);
+            border-radius: 16px;
+            padding: 28px 20px;
+            transition: 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+        .gate-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .gate-card .gc-icon {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+        .gate-card .gc-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .gate-card .gc-sub {
+            color: #5A6B7C;
+            font-size: 0.85rem;
+        }
+        .gate-card.danger {
+            border-color: #D65A6A;
+            background: #FFF0F0;
+        }
+        .gate-card.danger .gc-icon {
+            color: #D65A6A;
+        }
+        .gate-card.danger:hover {
+            border-color: #D65A6A;
+            box-shadow: 0 8px 32px rgba(214, 90, 106, 0.15);
+        }
+        .gate-card.safe {
+            border-color: #4C9F70;
+        }
+        .gate-card.safe .gc-icon {
+            color: #4C9F70;
+        }
+        .gate-card.safe:hover {
+            border-color: #4C9F70;
+            box-shadow: 0 8px 32px rgba(76, 159, 112, 0.15);
+        }
+
+        /* Emergency */
+        .emergency {
+            background: #FFF0F0;
+            border: 3px solid #D65A6A;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .emergency .num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #D65A6A;
+            margin: 4px 0;
+        }
+        .emergency .num i {
+            font-size: 2.5rem;
+            margin-right: 12px;
+        }
+        .emergency .call-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: #D65A6A;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 20px 40px;
+            border-radius: 999px;
+            border: none;
+            margin: 12px 0;
+            transition: 0.2s;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            text-decoration: none;
+        }
+        .emergency .call-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 32px rgba(214, 90, 106, 0.3);
+        }
+        .emergency ul {
+            text-align: left;
+            margin: 16px 0 0 20px;
+            font-size: 0.9rem;
+        }
+        .emergency ul li {
+            margin-bottom: 6px;
+        }
+        .emergency ul li i {
+            color: #D65A6A;
+            width: 18px;
+            margin-right: 6px;
+        }
+
+        /* Scenarios */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        @media (max-width: 560px) {
+            .scenario-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+        .scenario-card {
+            text-align: center;
+            background: #fff;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            transition: 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+        .scenario-card:hover {
+            border-color: #F9C74F;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .scenario-card .sc-icon {
+            font-size: 1.8rem;
+            color: #F9C74F;
+            margin-bottom: 6px;
+        }
+        .scenario-card .sc-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #D9A23D;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .scenario-card h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #0D1B2A;
+        }
+        .scenario-card p {
+            color: #5A6B7C;
+            font-size: 0.8rem;
+        }
+
+        /* Protocol */
+        .protocol-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .protocol-header .back-link {
+            font-size: 0.8rem;
+            color: #5A6B7C;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .protocol-header .back-link:hover {
+            color: #0D1B2A;
+        }
+        .protocol-header .badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #D9A23D;
+            background: rgba(249, 199, 79, 0.1);
+            padding: 3px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(249, 199, 79, 0.15);
+            margin-left: auto;
+        }
+
+        .protocol-title {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 12px;
+        }
+        .protocol-title h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: #0D1B2A;
+        }
+        .protocol-title h2 i {
+            color: #F9C74F;
+            margin-right: 8px;
+        }
+        .protocol-title .desc {
+            color: #5A6B7C;
+            font-size: 0.9rem;
+        }
+
+        .danger-warning {
+            background: #FFF0F0;
+            border-left: 6px solid #D65A6A;
+            border-radius: 16px;
+            padding: 16px 20px;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .danger-warning i {
+            color: #D65A6A;
+            font-size: 1.4rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .danger-warning p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1B263B;
+        }
+        .danger-warning strong {
+            color: #D65A6A;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        @media (max-width: 600px) {
+            .quick-actions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 400px) {
+            .quick-actions-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .qa-btn {
+            background: #fff;
+            border: 2px solid rgba(13, 27, 42, 0.1);
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            transition: 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+        .qa-btn:hover {
+            border-color: #F9C74F;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .qa-btn .qa-letter {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #F9C74F;
+            display: block;
+            line-height: 1.1;
+        }
+        .qa-btn .qa-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #0D1B2A;
+            display: block;
+        }
+        .qa-btn .qa-short {
+            font-size: 0.65rem;
+            color: #5A6B7C;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .role-details {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .role-detail {
+            background: #fff;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .role-detail:hover {
+            border-color: #F9C74F;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        .role-detail .rd-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #E4E9F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #F9C74F;
+            flex-shrink: 0;
+        }
+        .role-detail .rd-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .role-detail .rd-content .rd-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #D9A23D;
+        }
+        .role-detail .rd-content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0D1B2A;
+        }
+        .role-detail .rd-content p {
+            font-size: 0.85rem;
+            color: #1B263B;
+            display: none;
+            margin-top: 4px;
+        }
+        .role-detail.expanded .rd-content p {
+            display: block;
+        }
+        .role-detail .rd-toggle {
+            color: #5A6B7C;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .role-detail.expanded .rd-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Quick Tools */
+        .quick-tools {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        @media (max-width: 560px) {
+            .quick-tools {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 380px) {
+            .quick-tools {
+                grid-template-columns: 1fr;
+            }
+        }
+        .tool-btn {
+            background: #fff;
+            border: 2px solid rgba(13, 27, 42, 0.1);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+        .tool-btn:hover {
+            border-color: #F9C74F;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .tool-btn i {
+            font-size: 1.6rem;
+            color: #F9C74F;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .tool-btn .tool-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #0D1B2A;
+        }
+        .tool-btn .tool-sub {
+            font-size: 0.65rem;
+            color: #5A6B7C;
+        }
+        .tool-btn.recording {
+            border-color: #D65A6A;
+            background: #FFF0F0;
+            animation: pulse-red 1.5s ease-in-out infinite;
+        }
+        .tool-btn.recording i {
+            color: #D65A6A;
+        }
+        @keyframes pulse-red {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(214, 90, 106, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(214, 90, 106, 0.05);
+            }
+        }
+
+        /* Unified Report */
+        .unified-report {
+            background: #fff;
+            border: 2px solid #F9C74F;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+            position: relative;
+        }
+        .unified-report::before {
+            content: '📋 REPORTS';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #F9C74F;
+            color: #0D1B2A;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.08em;
+        }
+        .unified-report .ur-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .unified-report .ur-header i {
+            color: #F9C74F;
+            font-size: 1.8rem;
+        }
+        .unified-report .ur-header h3 {
+            font-size: 1.2rem;
+            color: #0D1B2A;
+        }
+        .unified-report .ur-header .witness-count {
+            margin-left: auto;
+            background: #E4E9F0;
+            padding: 2px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #5A6B7C;
+        }
+        .unified-report .ur-header .witness-count span {
+            color: #0D1B2A;
+            font-size: 1.1rem;
+        }
+        .unified-report .ur-body {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .unified-report .ur-body::-webkit-scrollbar {
+            width: 4px;
+        }
+        .unified-report .ur-body::-webkit-scrollbar-thumb {
+            background: #F9C74F;
+            border-radius: 999px;
+        }
+        .unified-report .ur-body .witness-entry {
+            background: #F7F4EE;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 3px solid #F9C74F;
+            font-size: 0.85rem;
+        }
+        .unified-report .ur-body .witness-entry .we-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.7rem;
+            color: #5A6B7C;
+            margin-bottom: 4px;
+        }
+        .unified-report .ur-body .witness-entry .we-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .unified-report .ur-body .witness-entry .we-text {
+            color: #1B263B;
+        }
+        .unified-report .ur-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(13, 27, 42, 0.1);
+        }
+        .unified-report .ur-actions .btn {
+            padding: 8px 18px;
+            font-size: 0.8rem;
+        }
+        .unified-report .ur-empty {
+            text-align: center;
+            color: #5A6B7C;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Report Form */
+        .report-form {
+            background: #fff;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        .report-form textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #E4E9F0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 100px;
+            transition: 0.2s;
+            background: #FAFBFC;
+        }
+        .report-form textarea:focus {
+            border-color: #F9C74F;
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(249, 199, 79, 0.1);
+        }
+        .report-form .report-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .report-form .report-actions .btn {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+        }
+        .report-form .input-hint {
+            font-size: 0.75rem;
+            color: #5A6B7C;
+            margin-top: 6px;
+        }
+        .report-form .input-hint kbd {
+            background: #E4E9F0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+
+        /* Beacon CTA */
+        .beacon-cta {
+            background: #0D1B2A;
+            border-radius: 16px;
+            padding: 28px 32px;
+            color: white;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .beacon-cta::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(249, 199, 79, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .beacon-cta i {
+            color: #F9C74F;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        .beacon-cta h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        .beacon-cta h3 i {
+            color: #F9C74F;
+        }
+        .beacon-cta p {
+            color: #C8D6E8;
+            font-size: 0.85rem;
+            max-width: 40ch;
+            margin: 0 auto 14px;
+        }
+        .beacon-cta .cta-row {
+            justify-content: center;
+        }
+
+        /* Channel */
+        .channel-card {
+            background: #fff;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 32px rgba(0, 20, 40, 0.12);
+        }
+        .channel-card .beacon-ring {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 199, 79, 0.25) 0%, rgba(249, 199, 79, 0.05) 60%, transparent 72%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .channel-card .beacon-ring::before,
+        .channel-card .beacon-ring::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(249, 199, 79, 0.25);
+            animation: ring 2.6s ease-out infinite;
+        }
+        .channel-card .beacon-ring::after {
+            animation-delay: 1.3s;
+        }
+        @keyframes ring {
+            0% {
+                width: 50px;
+                height: 50px;
+                opacity: 0.8;
+            }
+            100% {
+                width: 130px;
+                height: 130px;
+                opacity: 0;
+            }
+        }
+        .channel-card .beacon-core {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #F9C74F, #E8A83D);
+            z-index: 2;
+            box-shadow: 0 0 24px rgba(249, 199, 79, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0D1B2A;
+            font-size: 1.4rem;
+        }
+        .channel-card .code-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.2rem;
+            letter-spacing: 0.2em;
+            color: #0D1B2A;
+            font-weight: 500;
+        }
+        .channel-card .code-label {
+            font-size: 0.75rem;
+            color: #5A6B7C;
+            margin-bottom: 16px;
+        }
+        .channel-card .join-form {
+            display: flex;
+            gap: 10px;
+            max-width: 300px;
+            margin: 0 auto 10px;
+        }
+        .channel-card .join-form input {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.1em;
+            background: #F0F3F8;
+        }
+        .channel-card .join-form input:focus {
+            border-color: #F9C74F;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(249, 199, 79, 0.15);
+        }
+        .channel-card .lamps {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0 14px;
+        }
+        .channel-card .lamp-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #E4E9F0;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            transition: 0.2s;
+        }
+        .channel-card .lamp-dot.lit {
+            background: #F9C74F;
+            border-color: #F9C74F;
+            box-shadow: 0 0 12px rgba(249, 199, 79, 0.4);
+        }
+        .channel-card .joined-count {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: #4C9F70;
+            font-weight: 500;
+        }
+        .channel-card .checklist {
+            text-align: left;
+            max-width: 400px;
+            margin: 12px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .channel-card .checklist label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 1px solid rgba(13, 27, 42, 0.1);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .channel-card .checklist label:hover {
+            border-color: #F9C74F;
+        }
+        .channel-card .checklist input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4C9F70;
+            flex-shrink: 0;
+        }
+        .channel-card .checklist label.done {
+            background: #EFF5F0;
+            border-color: #4C9F70;
+            color: #4C9F70;
+        }
+        .channel-card .glass-badge {
+            display: inline-block;
+            background: rgba(249, 199, 79, 0.1);
+            color: #D9A23D;
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(249, 199, 79, 0.15);
+            margin-bottom: 12px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(13, 27, 42, 0.1);
+            padding: 32px 0 48px;
+            color: #5A6B7C;
+            font-size: 0.75rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        footer .wrap {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        footer i {
+            margin-right: 4px;
+            color: #F9C74F;
+        }
+
+        /* Toast */
+        .toast-stack {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+            width: min(92vw, 360px);
+            pointer-events: none;
+        }
+        .toast {
+            background: #0D1B2A;
+            color: #F0F3F8;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(13, 27, 42, 0.3);
+            animation: toastin 0.25s ease, toastout 0.3s ease 2.4s forwards;
+            pointer-events: auto;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @keyframes toastin {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        @keyframes toastout {
+            to {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+        }
+
+        .field-error {
+            font-size: 0.75rem;
+            color: #D65A6A;
+            min-height: 1.2em;
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0 48px;
+            }
+            .quick-tools {
+                grid-template-columns: 1fr 1fr;
+            }
+            .quick-actions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .unified-report {
+                padding: 16px;
+            }
+            .beacon-cta {
+                padding: 20px 16px;
+            }
+            .channel-card {
+                padding: 20px 16px;
+            }
+            .emergency {
+                padding: 20px;
+            }
+            .emergency .call-btn {
+                font-size: 1.2rem;
+                padding: 18px 24px;
+            }
+            .emergency .num {
+                font-size: 3rem;
+            }
+            .report-form {
+                padding: 16px;
+            }
+        }
+        @media (max-width: 360px) {
+            .quick-tools {
+                grid-template-columns: 1fr;
+            }
+            .quick-actions-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="wrap">
+            <button class="brand" id="brandHome"><i class="fas fa-shield-alt"></i> <span class="lamp"></span> Bystander Protocol</button>
+            <a class="reset-link" id="resetLink"><i class="fas fa-undo-alt"></i> Reset</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="wrap">
+            <div class="eyebrow"><span></span> <i class="fas fa-bolt"></i> Quick · Safe · Anonymous</div>
+            <h1><i class="fas fa-hand-holding-heart"></i>Don't freeze. Act.</h1>
+            <p class="lede">A calm plan in seconds. No accounts. No names. Just help.</p>
+            <div class="cta-row">
+                <a href="#" class="btn btn-primary btn-large" id="startBtn"><i class="fas fa-rocket"></i> Start Now</a>
+                <a href="#" class="btn btn-ghost" id="howItWorksBtn"><i class="fas fa-info-circle"></i> How it works</a>
+            </div>
+            <div class="hero-note">
+                <div><i class="fas fa-user-secret"></i><strong>Anonymous</strong> — No names, no tracking</div>
+                <div><i class="fas fa-phone"></i><strong>112</strong> — Emergency first</div>
+                <div><i class="fas fa-save"></i><strong>Local</strong> — Reports saved in your browser</div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="wrap">
+
+            <!-- ===== GATE VIEW ===== -->
+            <div class="view" id="view-gate">
+                <div class="stepper" id="stepper-gate"></div>
+                <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem); max-width:100%;"><i class="fas fa-exclamation-triangle" style="color:#D65A6A;"></i> Is someone in danger right now?</h2>
+                <div class="gate-options">
+                    <button class="gate-card danger" id="gateYes">
+                        <div class="gc-icon"><i class="fas fa-bell"></i></div>
+                        <div class="gc-title">YES — Call 112 Now</div>
+                        <div class="gc-sub">Get emergency help first</div>
+                    </button>
+                    <button class="gate-card safe" id="gateNo">
+                        <div class="gc-icon"><i class="fas fa-hand-peace"></i></div>
+                        <div class="gc-title">No, but something's wrong</div>
+                        <div class="gc-sub">Continue to help plan</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== EMERGENCY VIEW ===== -->
+            <div class="view" id="view-emergency">
+                <div class="emergency">
+                    <div class="num"><i class="fas fa-phone"></i>112</div>
+                    <p style="font-size:0.95rem; color:#5A6B7C; margin-bottom:8px;">Police · Fire · Ambulance</p>
+                    <a href="tel:112" class="call-btn"><i class="fas fa-phone"></i> CALL 112 NOW</a>
+                    <ul>
+                        <li><i class="fas fa-arrow-right"></i> Move to safety first</li>
+                        <li><i class="fas fa-arrow-right"></i> Stay on the line, describe what you see</li>
+                        <li><i class="fas fa-arrow-right"></i> After help is called, use this to coordinate</li>
+                    </ul>
+                    <div style="margin-top:18px;">
+                        <a href="#" class="btn btn-dark" id="fromEmergencyContinue" style="background:#0D1B2A; color:white; padding:12px 24px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; text-decoration:none;"><i class="fas fa-arrow-right"></i> I've called. Continue →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SCENARIOS VIEW ===== -->
+            <div class="view" id="view-scenarios">
+                <div class="stepper" id="stepper-scenarios"></div>
+                <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem); margin-bottom:16px;"><i class="fas fa-map-pin" style="color:#F9C74F;"></i> Where are you?</h2>
+                <div class="scenario-grid" id="scenarioGrid"></div>
+            </div>
+
+            <!-- ===== PROTOCOL VIEW ===== -->
+            <div class="view" id="view-protocol">
+
+                <div class="protocol-header">
+                    <a href="#" class="back-link" id="backToScenarios"><i class="fas fa-arrow-left"></i> Change</a>
+                    <span class="badge" id="protocolBadge"><i class="fas fa-tag"></i> Setting</span>
+                </div>
+
+                <div class="protocol-title">
+                    <h2 id="protocolTitle"><i class="fas fa-bolt"></i> Take Action</h2>
+                    <div class="desc" id="protocolDesc">Choose what to do</div>
+                </div>
+
+                <div class="danger-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>⚠️ Your safety comes first.</strong> Never put yourself in danger. Skip any step that feels unsafe.</p>
+                </div>
+
+                <div class="quick-actions-grid" id="quickActions"></div>
+                <div class="role-details" id="roleDetails"></div>
+
+                <div class="quick-tools">
+                    <button class="tool-btn" id="recordBtn">
+                        <i class="fas fa-video"></i>
+                        <span class="tool-label">Record</span>
+                        <span class="tool-sub">Audio / Video</span>
+                    </button>
+                    <button class="tool-btn" id="locationBtn">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="tool-label">Share Location</span>
+                        <span class="tool-sub" id="locationStatus">Off</span>
+                    </button>
+                </div>
+
+                <!-- Report Form -->
+                <div class="report-form">
+                    <textarea id="reportText" placeholder="What happened? Describe what you saw..."></textarea>
+                    <div class="input-hint">💡 <kbd>Ctrl + Enter</kbd> or <kbd>⌘ + Enter</kbd> to submit</div>
+                    <div class="report-actions">
+                        <button class="btn btn-primary" id="submitReportBtn"><i class="fas fa-paper-plane"></i> Submit Report</button>
+                        <button class="btn btn-outline" id="clearReportBtn"><i class="fas fa-eraser"></i> Clear</button>
+                        <span style="font-size:0.7rem; color:#5A6B7C; margin-left:auto;"><i class="fas fa-lock"></i> Anonymous</span>
+                    </div>
+                </div>
+
+                <!-- Unified Report -->
+                <div class="unified-report" id="unifiedReport">
+                    <div class="ur-header">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Witness Reports</h3>
+                        <div class="witness-count"><i class="fas fa-users"></i> <span id="witnessCount">0</span></div>
+                    </div>
+                    <div class="ur-body" id="urBody">
+                        <div class="ur-empty"><i class="fas fa-cloud-upload-alt"></i> No reports yet.</div>
+                    </div>
+                    <div class="ur-actions">
+                        <button class="btn btn-sage" id="downloadReportsBtn"><i class="fas fa-download"></i> Download All</button>
+                        <button class="btn btn-outline" id="clearAllReportsBtn"><i class="fas fa-trash"></i> Clear All</button>
+                    </div>
+                </div>
+
+                <!-- Beacon CTA -->
+                <div class="beacon-cta">
+                    <i class="fas fa-wifi"></i>
+                    <h3><i class="fas fa-users"></i> Coordinate with others</h3>
+                    <p>Share a code. Everyone sees the same plan. Act as a group.</p>
+                    <div class="cta-row">
+                        <a href="#" class="btn btn-primary" id="activateBtn"><i class="fas fa-bolt"></i> Start Beacon</a>
+                        <a href="tel:112" class="btn btn-ghost"><i class="fas fa-phone"></i> 112</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ===== CHANNEL VIEW ===== -->
+            <div class="view" id="view-channel">
+                <div class="stepper" id="stepper-channel"></div>
+                <div class="channel-card">
+                    <div class="glass-badge"><i class="fas fa-bolt"></i> LIVE BEACON</div>
+                    <div class="beacon-ring"><div class="beacon-core"><i class="fas fa-broadcast"></i></div></div>
+                    <div class="code-display" id="channelCode">— — — —</div>
+                    <button class="btn btn-outline" id="copyCodeBtn" style="padding:4px 16px; font-size:0.7rem; margin-bottom:6px;"><i class="fas fa-copy"></i> Copy</button>
+                    <div class="code-label">Share this code with people near you</div>
+
+                    <form class="join-form" id="joinForm" novalidate>
+                        <input type="text" maxlength="4" placeholder="Enter code" id="joinInput">
+                        <button class="btn btn-sage" type="submit" style="padding:10px 18px; font-size:0.85rem;"><i class="fas fa-sign-in-alt"></i> Join</button>
+                    </form>
+                    <div class="field-error" id="joinError" role="alert"></div>
+
+                    <div class="joined-count" id="joinedCount"><i class="fas fa-users"></i> 1 person</div>
+                    <div class="lamps" id="lamps"></div>
+
+                    <div class="checklist" id="checklist"></div>
+                </div>
+                <div style="text-align:center; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                    <a href="tel:112" class="back-link" style="color:#D65A6A; border-bottom:1px dotted #D65A6A;"><i class="fas fa-phone"></i> 112</a>
+                    <a href="#" class="back-link" id="endBeacon"><i class="fas fa-times-circle"></i> Close</a>
+                </div>
+            </div>
+
+            <!-- ===== HOW IT WORKS VIEW ===== -->
+            <div class="view" id="view-howitworks">
+                <div style="background:#fff; border-radius:16px; padding:32px; max-width:700px; margin:0 auto;">
+                    <h2 style="font-family:'Fraunces',serif; font-size:1.8rem; margin-bottom:8px;"><i class="fas fa-info-circle" style="color:#F9C74F;"></i> How It Works</h2>
+                    <p style="color:#5A6B7C; margin-bottom:20px;">Understanding the philosophy, data flow, and why police aren't directly involved</p>
+
+                    <div style="margin-bottom:16px; padding:16px 20px; background:#F7F4EE; border-radius:12px; border-left:4px solid #F9C74F;">
+                        <h3 style="font-size:1.1rem; color:#0D1B2A;"><i class="fas fa-star" style="color:#F9C74F;"></i> The Philosophy</h3>
+                        <p style="font-size:0.9rem; color:#1B263B; margin-top:4px;"><strong>Bystander intervention is about civilian coordination, not confrontation or policing.</strong> Most people who witness harassment or distress <strong>want to help</strong> — but they freeze because they don't know what's socially safe to do alone.</p>
+                    </div>
+
+                    <div style="margin-bottom:16px; padding:16px 20px; background:#F7F4EE; border-radius:12px; border-left:4px solid #F9C74F;">
+                        <h3 style="font-size:1.1rem; color:#0D1B2A;"><i class="fas fa-database" style="color:#F9C74F;"></i> How Data is Collected</h3>
+                        <ul style="list-style:none; padding:0; margin-top:8px;">
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-user-secret" style="color:#F9C74F; width:18px;"></i> <strong>Anonymous</strong> — No names, no email, no accounts</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-save" style="color:#F9C74F; width:18px;"></i> <strong>Local Storage</strong> — Reports are saved in your browser</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-file-download" style="color:#F9C74F; width:18px;"></i> <strong>Exportable</strong> — Download reports as text files</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-lock" style="color:#F9C74F; width:18px;"></i> <strong>No PII collected</strong> — No personal information stored</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom:16px; padding:16px 20px; background:#FFF0F0; border-radius:12px; border-left:4px solid #D65A6A;">
+                        <h3 style="font-size:1.1rem; color:#0D1B2A;"><i class="fas fa-balance-scale" style="color:#D65A6A;"></i> Why Police Aren't Directly Involved</h3>
+                        <ul style="list-style:none; padding:0; margin-top:8px;">
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-phone" style="color:#D65A6A; width:18px;"></i> <strong>Police are for emergencies</strong> — Call 112 for immediate danger</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-hand-holding-heart" style="color:#D65A6A; width:18px;"></i> <strong>Civilian first response</strong> — Most incidents need human connection, not police</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-file-alt" style="color:#D65A6A; width:18px;"></i> <strong>Documentation matters</strong> — Reports become evidence you can share</li>
+                            <li style="padding:4px 0; display:flex; align-items:center; gap:8px; font-size:0.9rem;"><i class="fas fa-user-secret" style="color:#D65A6A; width:18px;"></i> <strong>Privacy first</strong> — Some people don't want police involvement</li>
+                        </ul>
+                    </div>
+
+                    <div style="text-align:center; margin-top:16px;">
+                        <a href="#" class="btn btn-primary" id="backFromHowItWorks"><i class="fas fa-arrow-left"></i> Back to main</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <div><i class="fas fa-shield-alt"></i> Bystander Protocol — Quick. Safe. Anonymous.</div>
+            <div><i class="fas fa-lock"></i> No accounts. Data stays in your browser.</div>
+        </div>
+    </footer>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script>
+        // ============================================================
+        // COMPLETE WORKING JAVASCRIPT
+        // ============================================================
+
+        (function() {
+            "use strict";
+
+            // ----- SCENARIOS DATA -----
+            const SCENARIOS = [{
+                id: 'metro',
+                tag: 'Train',
+                title: 'Metro / Train',
+                desc: 'Crowded, limited space',
+                icon: 'fa-subway',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Ask a question',
+                        text: 'Ask a loud question — "Is this the stop for the museum?" — to break tension.',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'Signal staff',
+                        text: 'Make eye contact with someone near the intercom and tilt your head toward it.',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Record discreetly',
+                        text: 'Start recording from where you stand. Keep the phone low.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Stay with them',
+                        text: 'At the next stop, if they step off, go with them. Ask: "Are you okay?"',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: 'Stand beside',
+                        text: 'Stand beside the person being targeted and say "Hey, come sit with me."',
+                        icon: 'fa-hand-paper' },
+                ]
+            }, {
+                id: 'street',
+                tag: 'Street',
+                title: 'Street / Sidewalk',
+                desc: 'Open, fewer authority figures',
+                icon: 'fa-road',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Ask directions',
+                        text: 'Walk up and ask the person being targeted for directions or the time.',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'Flag shopkeeper',
+                        text: 'Look for a shopkeeper, guard, or auto driver nearby and quietly flag them.',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Note details',
+                        text: 'From a safe distance, note description, direction, vehicle number.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Check in',
+                        text: 'Catch up briefly: "I saw that. Are you alright? Want me to walk with you?"',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: '"Everything okay?"',
+                        text: 'A calm line: "Everything okay here?" — addressed to the person being targeted.',
+                        icon: 'fa-hand-paper' },
+                ]
+            }, {
+                id: 'workplace',
+                tag: 'Work',
+                title: 'Workplace',
+                desc: 'Power dynamics, discretion',
+                icon: 'fa-briefcase',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Work reason',
+                        text: 'Interrupt with a work reason — "Can I borrow you for two minutes?"',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'HR / Manager',
+                        text: 'Loop in HR, a manager, or a senior colleague you trust.',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Write it down',
+                        text: 'Write down date, time, what was said, who was present — save it outside work systems.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Private check-in',
+                        text: 'Check in privately: "That seemed off. I\'m around if you want to talk."',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: 'Neutral redirect',
+                        text: 'A neutral redirect: "Let\'s keep this to the agenda."',
+                        icon: 'fa-hand-paper' },
+                ]
+            }, {
+                id: 'queue',
+                tag: 'Queue',
+                title: 'Shop / Queue',
+                desc: 'Staff present, people watching',
+                icon: 'fa-people-arrows',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Step between',
+                        text: 'Step between them under the guise of asking: "Is this the line for billing?"',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'Flag staff',
+                        text: 'Flag staff directly: "Can someone help over here?"',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Note time & CCTV',
+                        text: 'Note the time and ask staff if there\'s CCTV or a complaints process.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Offer your place',
+                        text: 'Offer your place in line or ask: "Are you okay to continue?"',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: '"Let\'s keep it respectful"',
+                        text: 'A calm statement: "Let\'s keep this respectful."',
+                        icon: 'fa-hand-paper' },
+                ]
+            }, {
+                id: 'event',
+                tag: 'Event',
+                title: 'Crowded Event',
+                desc: 'Loud, packed, hard to move',
+                icon: 'fa-music',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Create space',
+                        text: 'Start dancing, singing, or moving between people to create space.',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'Event staff',
+                        text: 'Find event staff, security, or organizers.',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Note clothing',
+                        text: 'Note distinguishing details (clothing, location) to help staff.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Move to quiet spot',
+                        text: 'Help them move to a quieter spot — water, a seat, a check-in.',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: 'Use with others',
+                        text: 'Direct address is riskiest — prefer distract/delegate first.',
+                        icon: 'fa-hand-paper' },
+                ]
+            }, {
+                id: 'home',
+                tag: 'Home',
+                title: 'Private Residence',
+                desc: 'Most sensitive, safety first',
+                icon: 'fa-home',
+                roles: [
+                    { letter: 'D', name: 'Distract', short: 'Create exit',
+                        text: 'Create a reason to leave: "I need to get something from the car."',
+                        icon: 'fa-comment' },
+                    { letter: 'L', name: 'Delegate', short: 'Call a friend',
+                        text: 'Call a trusted friend and put the call on speaker.',
+                        icon: 'fa-eye' },
+                    { letter: 'D', name: 'Document', short: 'Secure notes',
+                        text: 'If safe, take notes immediately afterward in a secure place.',
+                        icon: 'fa-video' },
+                    { letter: 'D', name: 'Delay', short: 'Help them leave',
+                        text: 'Help the person leave — offer to go with them, or stay until they\'re safe.',
+                        icon: 'fa-clock' },
+                    { letter: 'D', name: 'Direct', short: 'Firm, calm line',
+                        text: 'If safe: "I think we need to take a break here."',
+                        icon: 'fa-hand-paper' },
+                ]
+            }];
+
+            // ----- STATE -----
+            let currentScenario = null;
+            let currentLocation = null;
+            let reports = [];
+            let channel = null;
+            let lastKnownCount = 1;
+
+            // ----- HELPERS -----
+            function toast(msg) {
+                const stack = document.getElementById('toastStack');
+                const t = document.createElement('div');
+                t.className = 'toast';
+                t.textContent = msg;
+                stack.appendChild(t);
+                setTimeout(() => t.remove(), 2600);
+            }
+
+            // ----- REPORTS (localStorage) -----
+            function loadReports() {
+                try {
+                    const saved = localStorage.getItem('bystander_reports');
+                    if (saved) {
+                        reports = JSON.parse(saved);
+                    }
+                } catch (e) {
+                    reports = [];
+                }
+                renderReports();
+            }
+
+            function saveReports() {
+                try {
+                    localStorage.setItem('bystander_reports', JSON.stringify(reports));
+                } catch (e) {
+                    console.error('Save error:', e);
+                }
+                renderReports();
+            }
+
+            function renderReports() {
+                const body = document.getElementById('urBody');
+                const count = document.getElementById('witnessCount');
+                count.textContent = reports.length;
+
+                if (reports.length === 0) {
+                    body.innerHTML = `<div class="ur-empty"><i class="fas fa-cloud-upload-alt"></i> No reports yet.</div>`;
+                    return;
+                }
+
+                body.innerHTML = reports.map((r, i) => `
+                    <div class="witness-entry">
+                        <div class="we-meta">
+                            <span><i class="fas fa-user-secret"></i> #${i+1}</span>
+                            <span><i class="fas fa-clock"></i> ${new Date(r.timestamp).toLocaleString()}</span>
+                            ${r.location ? `<span><i class="fas fa-map-pin"></i> ${r.location}</span>` : ''}
+                            <span><i class="fas fa-tag"></i> ${r.scenario || 'Unknown'}</span>
+                        </div>
+                        <div class="we-text">${escapeHtml(r.text)}</div>
+                    </div>
+                `).join('');
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // ----- SUBMIT REPORT -----
+            function submitReport() {
+                const textarea = document.getElementById('reportText');
+                const text = textarea.value.trim();
+
+                if (text.length < 3) {
+                    toast('⚠️ Please write at least a few words');
+                    textarea.focus();
+                    return;
+                }
+
+                const report = {
+                    id: 'r_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                    text: text,
+                    timestamp: new Date().toISOString(),
+                    location: currentLocation ? `${currentLocation.lat},${currentLocation.lng}` : 'Not shared',
+                    scenario: currentScenario ? currentScenario.title : 'General'
+                };
+
+                reports.push(report);
+                saveReports();
+                textarea.value = '';
+                textarea.focus();
+                toast('✅ Report saved! (' + reports.length + ' total)');
+            }
+
+            // ----- DOWNLOAD REPORTS -----
+            function downloadReports() {
+                if (reports.length === 0) {
+                    toast('⚠️ No reports to download');
+                    return;
+                }
+
+                let content = '═══════════════════════════════════════\n';
+                content += '   BYSTANDER PROTOCOL — WITNESS REPORTS\n';
+                content += '═══════════════════════════════════════\n\n';
+                content += '📅 Date Generated: ' + new Date().toLocaleString() + '\n';
+                content += '👥 Total Witnesses: ' + reports.length + '\n\n';
+                content += '─────────────────────────────────────────\n\n';
+
+                reports.forEach((r, i) => {
+                    content += `─── WITNESS #${i+1} ───\n`;
+                    content += `🕐 Time: ${new Date(r.timestamp).toLocaleString()}\n`;
+                    content += `📋 Scenario: ${r.scenario || 'General'}\n`;
+                    content += `📍 Location: ${r.location || 'Not shared'}\n\n`;
+                    content += `📝 ${r.text}\n\n`;
+                    content += '─────────────────────────────────────────\n\n';
+                });
+
+                content += '═══════════════════════════════════════\n';
+                content += '   END OF REPORT — ANONYMOUS & SECURE\n';
+                content += '═══════════════════════════════════════\n';
+
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `bystander-reports-${new Date().toISOString().slice(0,10)}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                toast('📄 Downloaded ' + reports.length + ' reports');
+            }
+
+            // ----- CLEAR ALL REPORTS -----
+            function clearAllReports() {
+                if (reports.length === 0) {
+                    toast('⚠️ No reports to clear');
+                    return;
+                }
+                if (confirm('⚠️ Delete all ' + reports.length + ' reports?')) {
+                    reports = [];
+                    saveReports();
+                    toast('🗑️ All reports cleared');
+                }
+            }
+
+            // ============================================================
+            // VIEW MANAGEMENT
+            // ============================================================
+
+            const views = ['gate', 'emergency', 'scenarios', 'protocol', 'channel', 'howitworks'];
+            const stepMap = { gate: 'gate', emergency: 'gate', scenarios: 'scenarios', protocol: 'scenarios',
+                channel: 'channel', howitworks: 'gate' };
+
+            function showView(name) {
+                views.forEach(v => {
+                    document.getElementById('view-' + v).classList.toggle('active', v === name);
+                });
+                ['stepper-gate', 'stepper-scenarios', 'stepper-channel'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && name !== 'howitworks') renderStepper(id, stepMap[name] || 'gate');
+                });
+                window.scrollTo({ top: document.querySelector('main').offsetTop - 60, behavior: 'smooth' });
+            }
+
+            // ----- STEPPER -----
+            const STEPS = [{ key: 'gate', label: 'Check' }, { key: 'scenarios', label: 'Where' },
+            { key: 'channel', label: 'Act' }];
+
+            function renderStepper(containerId, activeKey) {
+                const el = document.getElementById(containerId);
+                if (!el) return;
+                const activeIndex = STEPS.findIndex(s => s.key === activeKey);
+                el.innerHTML = STEPS.map((s, i) => {
+                    const state = i < activeIndex ? 'done' : (i === activeIndex ? 'current' : '');
+                    const dotContent = i < activeIndex ? '✓' : (i + 1);
+                    const track = i < STEPS.length - 1 ? `<div class="step-track"></div>` : '';
+                    return `<div class="step-item ${state}">
+                        <div class="step-dot">${dotContent}</div>
+                        <span class="step-label">${s.label}</span>
+                        ${track}
+                    </div>`;
+                }).join('');
+            }
+
+            // ============================================================
+            // NAVIGATION
+            // ============================================================
+
+            document.getElementById('brandHome').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('howItWorksBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showView('howitworks');
+            });
+
+            document.getElementById('backFromHowItWorks').addEventListener('click', function(e) {
+                e.preventDefault();
+                showView('gate');
+            });
+
+            document.getElementById('startBtn').addEventListener('click', e => { e.preventDefault();
+                showView('gate'); });
+
+            document.getElementById('gateYes').addEventListener('click', e => { e.preventDefault();
+                showView('emergency'); });
+
+            document.getElementById('gateNo').addEventListener('click', e => { e.preventDefault();
+                renderScenarios();
+                showView('scenarios'); });
+
+            document.getElementById('fromEmergencyContinue').addEventListener('click', e => { e.preventDefault();
+                renderScenarios();
+                showView('scenarios'); });
+
+            document.getElementById('backToScenarios').addEventListener('click', e => { e.preventDefault();
+                showView('scenarios'); });
+
+            // ----- SCENARIOS -----
+            function renderScenarios() {
+                const grid = document.getElementById('scenarioGrid');
+                grid.innerHTML = '';
+                SCENARIOS.forEach(s => {
+                    const card = document.createElement('button');
+                    card.className = 'scenario-card';
+                    card.innerHTML =
+                        `<div class="sc-icon"><i class="fas ${s.icon}"></i></div><span class="sc-tag">${s.tag}</span><h3>${s.title}</h3><p>${s.desc}</p>`;
+                    card.addEventListener('click', () => openProtocol(s.id));
+                    grid.appendChild(card);
+                });
+            }
+
+            // ----- PROTOCOL -----
+            function openProtocol(id) {
+                currentScenario = SCENARIOS.find(s => s.id === id);
+                if (!currentScenario) return;
+
+                document.getElementById('protocolBadge').innerHTML = `<i class="fas fa-tag"></i> ${currentScenario.tag}`;
+                document.getElementById('protocolTitle').innerHTML =
+                    `<i class="fas ${currentScenario.icon}"></i> ${currentScenario.title}`;
+                document.getElementById('protocolDesc').textContent = currentScenario.desc;
+
+                // Quick actions
+                const qaContainer = document.getElementById('quickActions');
+                qaContainer.innerHTML = '';
+                currentScenario.roles.forEach(r => {
+                    const btn = document.createElement('button');
+                    btn.className = 'qa-btn';
+                    btn.innerHTML =
+                        `<span class="qa-letter">${r.letter}</span><span class="qa-name">${r.name}</span><span class="qa-short">${r.short || ''}</span>`;
+                    btn.addEventListener('click', () => {
+                        toast(`${r.name}: ${r.text}`);
+                    });
+                    qaContainer.appendChild(btn);
+                });
+
+                // Role details
+                const detailsContainer = document.getElementById('roleDetails');
+                detailsContainer.innerHTML = '';
+                currentScenario.roles.forEach(r => {
+                    const div = document.createElement('div');
+                    div.className = 'role-detail';
+                    div.innerHTML = `
+                        <div class="rd-icon"><i class="fas ${r.icon || 'fa-star'}"></i></div>
+                        <div class="rd-content">
+                            <span class="rd-tag">${r.letter} · ${r.name}</span>
+                            <h4>${r.name}</h4>
+                            <p>${r.text}</p>
+                        </div>
+                        <span class="rd-toggle"><i class="fas fa-chevron-down"></i></span>
+                    `;
+                    div.addEventListener('click', () => {
+                        div.classList.toggle('expanded');
+                    });
+                    detailsContainer.appendChild(div);
+                });
+
+                showView('protocol');
+            }
+
+            // ============================================================
+            // EVENT LISTENERS — REPORTS
+            // ============================================================
+
+            document.getElementById('submitReportBtn').addEventListener('click', submitReport);
+
+            document.getElementById('clearReportBtn').addEventListener('click', function() {
+                document.getElementById('reportText').value = '';
+                toast('🧹 Cleared');
+            });
+
+            document.getElementById('reportText').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    submitReport();
+                }
+            });
+
+            document.getElementById('downloadReportsBtn').addEventListener('click', downloadReports);
+            document.getElementById('clearAllReportsBtn').addEventListener('click', clearAllReports);
+
+            // ============================================================
+            // LOCATION
+            // ============================================================
+
+            document.getElementById('locationBtn').addEventListener('click', function() {
+                if (!navigator.geolocation) {
+                    toast('Geolocation not supported');
+                    return;
+                }
+                const btn = this;
+                const orig = btn.querySelector('.tool-sub').textContent;
+                btn.querySelector('.tool-sub').textContent = 'Getting...';
+
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                        const lat = pos.coords.latitude;
+                        const lng = pos.coords.longitude;
+                        currentLocation = { lat, lng };
+                        btn.querySelector('.tool-sub').textContent = `📍 ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                        document.getElementById('locationStatus').textContent = '📍 Shared';
+                        toast('📍 Location shared');
+                    },
+                    (err) => {
+                        toast('Could not get location');
+                        btn.querySelector('.tool-sub').textContent = orig;
+                    }, { enableHighAccuracy: true, timeout: 10000 }
+                );
+            });
+
+            // ============================================================
+            // RECORDING (simplified)
+            // ============================================================
+
+            let isRecording = false;
+            let mediaRecorder = null;
+            let recordedChunks = [];
+
+            document.getElementById('recordBtn').addEventListener('click', async function() {
+                if (isRecording) {
+                    if (mediaRecorder) {
+                        mediaRecorder.stop();
+                        mediaRecorder = null;
+                    }
+                    this.classList.remove('recording');
+                    this.querySelector('.tool-label').textContent = 'Record';
+                    this.querySelector('.tool-sub').textContent = 'Audio / Video';
+                    isRecording = false;
+                    toast('Recording stopped');
+                    return;
+                }
+
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    recordedChunks = [];
+
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data.size > 0) recordedChunks.push(e.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `recording-${new Date().toISOString().slice(0,10)}.webm`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                        stream.getTracks().forEach(t => t.stop());
+                        toast('Recording saved');
+                        // Add as report
+                        if (currentScenario) {
+                            reports.push({
+                                id: 'r_' + Date.now(),
+                                text: '[Video recording] — ' + new Date().toLocaleString(),
+                                timestamp: new Date().toISOString(),
+                                location: currentLocation ? `${currentLocation.lat},${currentLocation.lng}` :
+                                    'Not shared',
+                                scenario: currentScenario.title
+                            });
+                            saveReports();
+                        }
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    this.classList.add('recording');
+                    this.querySelector('.tool-label').textContent = 'Stop';
+                    this.querySelector('.tool-sub').textContent = '🔴 Recording...';
+                    toast('Recording started — tap again to save');
+                } catch (err) {
+                    toast('Could not access camera/mic: ' + err.message);
+                }
+            });
+
+            // ============================================================
+            // BEACON SYSTEM — FIXED!
+            // ============================================================
+
+            function randCode() {
+                const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+                let out = '';
+                for (let i = 0; i < 4; i++) out += chars[Math.floor(Math.random() * chars.length)];
+                return out;
+            }
+
+            function storageKeyFor(code) { return 'beacon:' + code; }
+
+            function readBeacon(code) {
+                try {
+                    const raw = localStorage.getItem(storageKeyFor(code));
+                    return raw ? JSON.parse(raw) : null;
+                } catch (e) { return null; }
+            }
+
+            function writeBeacon(code, data) {
+                try { localStorage.setItem(storageKeyFor(code), JSON.stringify(data)); } catch (e) {}
+            }
+
+            function startBeacon() {
+                const code = randCode();
+                const data = {
+                    count: 1,
+                    checklist: { Distract: false, Delegate: false, Document: false, Delay: false, Direct: false }
+                };
+                writeBeacon(code, data);
+                channel = { code };
+                lastKnownCount = data.count;
+                renderChannel(data);
+                showView('channel');
+                toast('🔔 Beacon activated — share the code');
+            }
+
+            function joinBeacon(code) {
+                code = code.trim().toUpperCase();
+                const errEl = document.getElementById('joinError');
+                if (code.length !== 4) {
+                    errEl.textContent = 'Codes are 4 characters — check and try again.';
+                    return;
+                }
+                errEl.textContent = '';
+                let data = readBeacon(code);
+                let isNew = false;
+                if (!data) {
+                    isNew = true;
+                    data = { count: 1, checklist: { Distract: false, Delegate: false, Document: false, Delay: false,
+                            Direct: false } };
+                }
+                data.count += 1;
+                writeBeacon(code, data);
+                channel = { code };
+                lastKnownCount = data.count;
+                renderChannel(data);
+                showView('channel');
+                toast(isNew ? 'New beacon started' : 'Joined the beacon');
+            }
+
+            document.getElementById('activateBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                startBeacon();
+            });
+
+            document.getElementById('copyCodeBtn').addEventListener('click', function() {
+                if (!channel) {
+                    toast('No active beacon');
+                    return;
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(channel.code).then(() => toast('✅ Code copied'));
+                } else {
+                    toast('Code: ' + channel.code);
+                }
+            });
+
+            document.getElementById('joinInput').addEventListener('input', function(e) {
+                e.target.value = e.target.value.toUpperCase();
+                document.getElementById('joinError').textContent = '';
+            });
+
+            document.getElementById('joinForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const val = document.getElementById('joinInput').value;
+                if (val) joinBeacon(val);
+            });
+
+            document.getElementById('endBeacon').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (channel) {
+                    try { localStorage.removeItem(storageKeyFor(channel.code)); } catch (err) {}
+                }
+                channel = null;
+                showView('protocol');
+                toast('Beacon closed');
+            });
+
+            function renderChannel(data) {
+                document.getElementById('channelCode').textContent = channel.code.split('').join(' ');
+                document.getElementById('joinedCount').innerHTML =
+                    `<i class="fas fa-users"></i> ${data.count} person${data.count > 1 ? 's' : ''}`;
+
+                const lamps = document.getElementById('lamps');
+                lamps.innerHTML = '';
+                const total = Math.max(data.count, 1);
+                for (let i = 0; i < Math.min(total, 12); i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'lamp-dot lit';
+                    lamps.appendChild(dot);
+                }
+
+                const roles = (currentScenario ? currentScenario.roles : []).length ? currentScenario.roles : [
+                    { name: 'Distract', icon: 'fa-comment' },
+                    { name: 'Delegate', icon: 'fa-eye' },
+                    { name: 'Document', icon: 'fa-video' },
+                    { name: 'Delay', icon: 'fa-clock' },
+                    { name: 'Direct', icon: 'fa-hand-paper' }
+                ];
+                const checklist = document.getElementById('checklist');
+                checklist.innerHTML = '';
+                const seen = new Set();
+                roles.forEach(r => {
+                    if (seen.has(r.name)) return;
+                    seen.add(r.name);
+                    const id = 'chk-' + r.name;
+                    const checked = data.checklist && data.checklist[r.name];
+                    const label = document.createElement('label');
+                    label.className = checked ? 'done' : '';
+                    label.innerHTML =
+                        `<input type="checkbox" id="${id}" ${checked?'checked':''}/> <i class="fas ${r.icon || 'fa-check-circle'}"></i> ${r.name}`;
+                    label.querySelector('input').addEventListener('change', function(ev) {
+                        const d = readBeacon(channel.code) || data;
+                        d.checklist = d.checklist || {};
+                        d.checklist[r.name] = ev.target.checked;
+                        writeBeacon(channel.code, d);
+                        label.classList.toggle('done', ev.target.checked);
+                    });
+                    checklist.appendChild(label);
+                });
+            }
+
+            // cross-tab sync for beacon
+            window.addEventListener('storage', function(e) {
+                if (!channel) return;
+                if (e.key === storageKeyFor(channel.code)) {
+                    const data = readBeacon(channel.code);
+                    if (data) {
+                        if (data.count > lastKnownCount) toast('Someone else joined');
+                        lastKnownCount = data.count;
+                        renderChannel(data);
+                    }
+                }
+            });
+
+            // ============================================================
+            // RESET
+            // ============================================================
+
+            document.getElementById('resetLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (channel) {
+                    try { localStorage.removeItem(storageKeyFor(channel.code)); } catch (err) {}
+                }
+                channel = null;
+                currentScenario = null;
+                showView('gate');
+                toast('🔄 Reset complete');
+            });
+
+            // ============================================================
+            // LOAD REPORTS ON START
+            // ============================================================
+
+            loadReports();
+
+            // ============================================================
+            // INIT
+            // ============================================================
+
+            showView('gate');
+
+            console.log('✅ Bystander Protocol is ready!');
+            console.log('📝 Reports saved in localStorage. Total: ' + reports.length);
+
+        })();
+    </script>
+</body>
+</html>
