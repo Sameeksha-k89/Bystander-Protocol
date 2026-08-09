@@ -35,14 +35,6 @@ Most people who witness these situations **want to help** — but they freeze be
 
 ---
 
-## 🚀 Live Demo
-
-**🔗 [View Live App](https://your-project-name.netlify.app)**
-
-> *Replace with your actual Netlify URL*
-
----
-
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
@@ -94,12 +86,4 @@ Share a 4-character code with people nearby. Everyone who enters the code sees t
 All witness statements are merged into a **single unified report** — downloadable as a text file.
 
 ---
-
-## 📷 Screenshots
-
-<!-- Add your screenshot here -->
-![Bystander Protocol Screenshot](screenshot.png)
-
----
-
 ## 📂 Project Structure
